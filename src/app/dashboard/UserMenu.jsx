@@ -6,6 +6,7 @@ import {
     getDashboardRoleFromUser,
     getDashboardRoleLabel,
 } from "@/lib/dashboard-access";
+import SignOutBtn from "./SignOutBtn";
 
 export default function UserMenu() {
     const {isLoaded, user} = useUser();
@@ -38,6 +39,7 @@ export default function UserMenu() {
                     </svg>
                     <span>Volver a pagina web</span>
                 </Link>
+                <SignOutBtn />
             </div>
         </div>
     );
