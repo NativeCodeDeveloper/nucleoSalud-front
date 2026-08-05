@@ -761,7 +761,7 @@ export default function NuevaFicha() {
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 3l1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5L12 3zM19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8L19 15z" />
                                 </svg>
                             )}
-                            {mejorandoRedaccion ? "Cortex está mejorando..." : "Mejorar redacción con Cortex"}
+                            {mejorandoRedaccion ? "Mejorando con I.A..." : "Mejorar con I.A"}
                         </button>
                         {haySugerenciasCortex && (
                             <button

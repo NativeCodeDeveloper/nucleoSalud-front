@@ -7,6 +7,7 @@ import {useRouter} from "next/navigation";
 import {Calendar28} from "@/Componentes/shadcnCalendarSelector";
 import {InfoButton} from "@/Componentes/InfoButton";
 import {canAccessFichasClinicas, getDashboardRoleFromUser} from "@/lib/dashboard-access";
+import {useUser} from "@clerk/nextjs";
 
 import {
     Table,
@@ -39,7 +40,8 @@ const STORAGE_KEYS = {
 export default function AgendaCitas() {
     const API = process.env.NEXT_PUBLIC_API_URL;
     const router = useRouter();
-    const dashboardRole = getDashboardRoleFromUser(null);
+    const {user} = useUser();
+    const dashboardRole = getDashboardRoleFromUser(user);
     const canSeeFichasClinicas = canAccessFichasClinicas(dashboardRole);
     const [dataLista, setdataLista] = useState([]);
     const [dataListaBase, setDataListaBase] = useState([]);

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Menu, X } from "lucide-react";
+import { useEnlaceWhatsapp } from "@/ContextosGlobales/ContactoPublicoContext";
 
 const navItems = [
   { label: "Inicio", href: "/#inicio" },
@@ -15,6 +16,7 @@ const navItems = [
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const enlaceWhatsapp = useEnlaceWhatsapp();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -69,13 +71,16 @@ export default function Navbar() {
 
         {/* Action Buttons */}
         <div className="flex shrink-0 items-center justify-end gap-3 sm:gap-4 lg:w-40">
-          <Link
-            href="/agendaProfesionales"
+          <a
+            href={enlaceWhatsapp || undefined}
+            target="_blank"
+            rel="noopener noreferrer"
             aria-label="Agendar hora"
-            className="hidden rounded-full bg-indigo-600 px-6 py-2.5 text-sm font-bold text-white shadow-md transition duration-300 hover:bg-indigo-700 hover:scale-105 sm:inline-flex"
+            aria-disabled={!enlaceWhatsapp}
+            className={`hidden rounded-full bg-indigo-600 px-6 py-2.5 text-sm font-bold text-white shadow-md transition duration-300 hover:bg-indigo-700 hover:scale-105 sm:inline-flex ${!enlaceWhatsapp ? "pointer-events-none opacity-60" : ""}`}
           >
             Agendar hora
-          </Link>
+          </a>
 
           <button
             type="button"
@@ -107,13 +112,16 @@ export default function Navbar() {
             </Link>
           ))}
           <div className="mt-2 border-t border-slate-100 pt-4">
-            <Link
-              href="/agendaProfesionales"
+            <a
+              href={enlaceWhatsapp || undefined}
+              target="_blank"
+              rel="noopener noreferrer"
               onClick={() => setIsOpen(false)}
-              className="block w-full rounded-2xl bg-indigo-600 px-5 py-4 text-center text-[15px] font-bold text-white shadow transition duration-300 hover:bg-indigo-700"
+              aria-disabled={!enlaceWhatsapp}
+              className={`block w-full rounded-2xl bg-indigo-600 px-5 py-4 text-center text-[15px] font-bold text-white shadow transition duration-300 hover:bg-indigo-700 ${!enlaceWhatsapp ? "pointer-events-none opacity-60" : ""}`}
             >
               Agendar hora
-            </Link>
+            </a>
           </div>
         </div>
       </div>

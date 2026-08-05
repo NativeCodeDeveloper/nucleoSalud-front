@@ -6,6 +6,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import UserMenu from "./UserMenu";
 import NotificationBell from "@/components/NotificationBell";
 import { getDashboardRoleFromUser, getVisibleDashboardSections } from "@/lib/dashboard-access";
+import { useUser } from "@clerk/nextjs";
 
 const ICONS = {
   home: (
@@ -202,7 +203,8 @@ function NavAccordion({ id, label, icon, children, openAccordions, onToggle }) {
 
 export default function SidebarNav() {
   const pathname = usePathname();
-  const role = getDashboardRoleFromUser(null);
+  const {isLoaded, user} = useUser();
+  const role = isLoaded ? getDashboardRoleFromUser(user) : "unknown";
   const sections = useMemo(() => getVisibleDashboardSections(role), [role]);
 
   const [openAccordions, setOpenAccordions] = useState(() => {

@@ -126,7 +126,7 @@ async function llamarCortex(mensajeUsuario){
 
 
   return (
-    <div className="pointer-events-none fixed inset-0 z-[80]">
+    <div className="pointer-events-none fixed inset-0 z-[80] hidden">
       <div className="absolute bottom-5 right-4 flex flex-col items-end sm:bottom-7 sm:right-7">
         {isOpen ? (
           <section

@@ -189,7 +189,7 @@ export default function DetalleCotizacion() {
                     ? null
                     : Math.max(0, Number(abonoRecibido) || 0)
             );
-            setObservacionesDetalle(observacionesDetalle);
+            setObservacionesDetalle(observacionesDetalle ?? "");
 
         }catch(error) {
             return toast.error(`Ocurrio un problema en el servidor por favor contacte a soporte.`);

@@ -38,6 +38,7 @@ import { RutDisplay } from "@/Componentes/RutDisplay";
 import { getStateTokens } from "@/lib/designTokens";
 import { useRouter } from "next/navigation";
 import { canAccessFichasClinicas, getDashboardRoleFromUser } from "@/lib/dashboard-access";
+import { useUser } from "@clerk/nextjs";
 
 const ACCIONES_ESTADO = [
   { valor: "confirmada", etiqueta: "Confirmar" },
@@ -62,7 +63,8 @@ function getEstadoActionStyle(estado) {
 // ─── Sección de información (solo lectura) ────────────────────────────────────
 function InfoSection({ reserva, start, end, formatHora, formatFechaLarga }) {
   const router = useRouter();
-  const dashboardRole = getDashboardRoleFromUser(null);
+  const {user} = useUser();
+  const dashboardRole = getDashboardRoleFromUser(user);
   const canSeeFichasClinicas = canAccessFichasClinicas(dashboardRole);
   const nombre = (reserva?.nombrePaciente ?? "").trim();
   const apellido = (reserva?.apellidoPaciente ?? "").trim();

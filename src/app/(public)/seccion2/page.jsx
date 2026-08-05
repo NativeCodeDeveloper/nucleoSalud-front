@@ -106,7 +106,7 @@ export default function Seccion2() {
               Nuestros Servicios
             </h2>
             <p className="text-lg text-slate-600">
-              Explora los tratamientos y servicios disponibles en este centro. Agenda tu hora directamente en línea, de forma rápida y sin llamadas.
+              Explora los tratamientos y servicios disponibles en este centro. Agenda tu hora directamente por WhatsApp de forma rápida y sencilla.
             </p>
           </div>
         </RevealOnScroll>

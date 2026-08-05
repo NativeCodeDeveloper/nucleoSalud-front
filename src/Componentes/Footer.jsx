@@ -4,12 +4,13 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Facebook, Globe, Instagram, Linkedin, Mail, MapPin, MessageCircle, Phone, Shield, Lock, Twitter, Youtube } from "lucide-react";
+import { useEnlaceWhatsapp } from "@/ContextosGlobales/ContactoPublicoContext";
 
 const navLinks = [
   { label: "Inicio", href: "#inicio" },
   { label: "Servicios", href: "#servicios" },
   { label: "Testimonios", href: "#testimonios" },
-  { label: "Agendar hora", href: "/agendaProfesionales" },
+  { label: "Agendar hora", esWhatsapp: true },
 ];
 
 function normalizeWhatsAppNumber(phone) {
@@ -45,6 +46,7 @@ const initialContact = {
 };
 
 export default function Footer() {
+  const enlaceWhatsapp = useEnlaceWhatsapp();
   const API = process.env.NEXT_PUBLIC_API_URL;
   const [publicContact, setPublicContact] = useState(initialContact);
 
@@ -140,7 +142,7 @@ export default function Footer() {
             </Link>
 
             <p className="text-slate-400 leading-relaxed max-w-xs mb-8 mt-4">
-              Agenda tu hora en línea de forma rápida y segura, en cualquier momento del día.
+              Agenda tu hora directamente por WhatsApp de forma rápida y sencilla.
             </p>
 
             {/* Trust badges */}
@@ -166,8 +168,11 @@ export default function Footer() {
                 {navLinks.map((item) => (
                   <li key={item.label}>
                     <a
-                      href={item.href}
-                      className="text-slate-400 text-sm transition hover:text-white"
+                      href={item.esWhatsapp ? enlaceWhatsapp || undefined : item.href}
+                      target={item.esWhatsapp ? "_blank" : undefined}
+                      rel={item.esWhatsapp ? "noopener noreferrer" : undefined}
+                      aria-disabled={item.esWhatsapp && !enlaceWhatsapp}
+                      className={`text-slate-400 text-sm transition hover:text-white ${item.esWhatsapp && !enlaceWhatsapp ? "pointer-events-none opacity-60" : ""}`}
                     >
                       {item.label}
                     </a>

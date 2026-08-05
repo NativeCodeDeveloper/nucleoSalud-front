@@ -2,6 +2,7 @@ import "./globals.css";
 import { AnimatedLayout } from "@/Componentes/AnimatedLayout";
 import AgendaProvider from "@/ContextosGlobales/AgendaContext";
 import { Inter, Lora, Michroma, Outfit } from "next/font/google";
+import { ClerkProvider } from "@clerk/nextjs";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -124,22 +125,28 @@ export default function RootLayout({ children }) {
     `;
 
   return (
-    <html lang="es" data-scroll-behavior="smooth" className={`${inter.variable} ${outfit.variable} ${lora.variable} ${michroma.variable}`}>
-      <body className="min-h-screen bg-white">
-        {/*
-          AgendaProvider DEBE envolver AnimatedLayout (no estar dentro).
-          AnimatedLayout desmonta/remonta sus hijos en cada navegación
-          (usa key={pathname} + AnimatePresence). Si AgendaProvider
-          estuviera adentro, su estado (fecha, hora, servicio) se reiniciaría
-          en cada cambio de ruta, perdiendo los datos entre el calendario y el formulario.
-        */}
-        <AgendaProvider>
-          <AnimatedLayout>
-            {children}
-          </AnimatedLayout>
-        </AgendaProvider>
-        <script dangerouslySetInnerHTML={{ __html: serviceWorkerScript }} />
-      </body>
-    </html>
+    <ClerkProvider
+      signInUrl="/sign-in"
+      signInFallbackRedirectUrl="/dashboard"
+      afterSignOutUrl="/"
+    >
+      <html lang="es" data-scroll-behavior="smooth" className={`${inter.variable} ${outfit.variable} ${lora.variable} ${michroma.variable}`}>
+        <body className="min-h-screen bg-white">
+          {/*
+            AgendaProvider DEBE envolver AnimatedLayout (no estar dentro).
+            AnimatedLayout desmonta/remonta sus hijos en cada navegación
+            (usa key={pathname} + AnimatePresence). Si AgendaProvider
+            estuviera adentro, su estado (fecha, hora, servicio) se reiniciaría
+            en cada cambio de ruta, perdiendo los datos entre el calendario y el formulario.
+          */}
+          <AgendaProvider>
+            <AnimatedLayout>
+              {children}
+            </AnimatedLayout>
+          </AgendaProvider>
+          <script dangerouslySetInnerHTML={{ __html: serviceWorkerScript }} />
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }

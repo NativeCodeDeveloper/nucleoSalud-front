@@ -22,6 +22,7 @@ import {
     canAccessRecetasEnFicha,
     getDashboardRoleFromUser,
 } from "@/lib/dashboard-access";
+import {useUser} from "@clerk/nextjs";
 
 
 function parsearDatosDinamicos(datos) {
@@ -584,7 +585,8 @@ export default function Paciente() {
         primeraExpansionRef.current = id_paciente;
         setFichasExpandidas(new Set([listaFichasOrdenada[0].id_ficha]));
     }, [listaFichasOrdenada, id_paciente]);
-    const dashboardRole = getDashboardRoleFromUser(null);
+    const {user} = useUser();
+    const dashboardRole = getDashboardRoleFromUser(user);
     const canSeeOdontograma = canAccessOdontograma(dashboardRole);
     const canSeeRecetaMedica = canAccessRecetasEnFicha(dashboardRole);
 
@@ -987,7 +989,7 @@ export default function Paciente() {
                                 <span className="text-[13px] font-bold leading-snug text-slate-700 break-words">Presupuesto Paciente</span>
                             </button>
                             {canSeeOdontograma && (
-                                <button onClick={verPeriodontograma} className="min-h-[112px] bg-white border border-slate-200 rounded-[28px] p-6 flex flex-col items-start gap-3 hover:border-[#6E56CF] hover:shadow-lg hover:shadow-indigo-50/50 transition-all group text-left">
+                                <button onClick={verPeriodontograma} className="!hidden min-h-[112px] bg-white border border-slate-200 rounded-[28px] p-6 flex flex-col items-start gap-3 hover:border-[#6E56CF] hover:shadow-lg hover:shadow-indigo-50/50 transition-all group text-left">
                                     <div className="h-10 w-10 rounded-xl bg-violet-50 text-[#6E56CF] flex items-center justify-center group-hover:bg-[#6E56CF] group-hover:text-white transition-colors">
                                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7.5 12.75h9m-9 3h9M8.25 3.75h7.5A2.25 2.25 0 0118 6v12a2.25 2.25 0 01-2.25 2.25h-7.5A2.25 2.25 0 016 18V6a2.25 2.25 0 012.25-2.25zM9 7.5h.008v.008H9V7.5zm3 0h.008v.008H12V7.5zm3 0h.008v.008H15V7.5z" /></svg>
                                     </div>

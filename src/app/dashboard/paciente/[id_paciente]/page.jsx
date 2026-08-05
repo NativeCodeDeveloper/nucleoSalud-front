@@ -16,6 +16,7 @@ import { RutInput } from "@/Componentes/RutInput";
 import { PhoneInput } from "@/Componentes/PhoneInput";
 import { formatRut } from "@/lib/designTokens";
 import {canAccessFichasClinicas, getDashboardRoleFromUser} from "@/lib/dashboard-access";
+import {useUser} from "@clerk/nextjs";
 
 
 
@@ -28,7 +29,8 @@ export default function Paciente(){
     const [detallePaciente, setDetallePaciente] = useState([])
     const API = process.env.NEXT_PUBLIC_API_URL;
     const router = useRouter();
-    const dashboardRole = getDashboardRoleFromUser(null);
+    const {user} = useUser();
+    const dashboardRole = getDashboardRoleFromUser(user);
     const canSeeFichasClinicas = canAccessFichasClinicas(dashboardRole);
     const [mostrarFormulario, setMostrarFormulario] = useState(false);
     const formularioRef = useRef(null);

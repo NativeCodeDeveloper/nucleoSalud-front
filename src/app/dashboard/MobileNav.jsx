@@ -24,6 +24,7 @@ import {
   X,
 } from "lucide-react";
 import { getDashboardRoleFromUser, getVisibleDashboardSections } from "@/lib/dashboard-access";
+import { useUser } from "@clerk/nextjs";
 
 const michroma = Michroma({ weight: "400", subsets: ["latin"], display: "swap" });
 
@@ -48,7 +49,8 @@ const ICONS = {
 export default function MobileNav() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
-  const role = getDashboardRoleFromUser(null);
+  const {isLoaded, user} = useUser();
+  const role = isLoaded ? getDashboardRoleFromUser(user) : "unknown";
   const sections = getVisibleDashboardSections(role);
 
   return (

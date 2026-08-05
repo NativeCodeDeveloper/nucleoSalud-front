@@ -1,11 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import RevealOnScroll from "@/Componentes/RevealOnScroll";
+import { useEnlaceWhatsapp } from "@/ContextosGlobales/ContactoPublicoContext";
 
 export default function Seccion1() {
+  const enlaceWhatsapp = useEnlaceWhatsapp();
   const API = process.env.NEXT_PUBLIC_API_URL;
   const [sobreNosotros, setSobreNosotros] = useState("");
   const [primerParrafo, setPrimerParrafo] = useState("");
@@ -76,13 +77,16 @@ export default function Seccion1() {
               <p className="text-lg text-slate-600 leading-relaxed">
                 {descripcionSecundaria}
               </p>
-              <Link
-                href="/agendaProfesionales"
-                className="group inline-flex items-center gap-2 font-semibold text-slate-900 hover:text-indigo-600 transition-colors w-fit"
+              <a
+                href={enlaceWhatsapp || undefined}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-disabled={!enlaceWhatsapp}
+                className={`group inline-flex items-center gap-2 font-semibold text-slate-900 hover:text-indigo-600 transition-colors w-fit ${!enlaceWhatsapp ? "pointer-events-none opacity-60" : ""}`}
               >
                 Reservar una hora
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </Link>
+              </a>
             </div>
 
           </div>

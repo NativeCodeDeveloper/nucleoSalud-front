@@ -439,7 +439,7 @@ function normalizeDashboardRole(input) {
   const raw = String(input || "").trim().toLowerCase();
 
   if (!raw) {
-    return "default";
+    return "unknown";
   }
 
   if (raw === "default" || raw === "admin") {

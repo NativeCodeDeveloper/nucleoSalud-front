@@ -11,6 +11,8 @@ import SidebarNav from "./SidebarNav";
 import NotificationProvider from "@/components/NotificationProvider";
 import DashboardPageTransition from "@/components/DashboardPageTransition";
 import CortexAssistant from "@/Componentes/CortexAssistant";
+import DashboardAccessGuard from "./DashboardAccessGuard";
+import { auth } from "@clerk/nextjs/server";
 
 const michroma = Michroma({ weight: "400", subsets: ["latin"], display: "swap" });
 
@@ -156,7 +158,9 @@ const IcoFichas = (
     </svg>
 );
 // ─── Layout principal ─────────────────────────────────────────────────────────
-export default function DashboardLayout({ children }) {
+export default async function DashboardLayout({ children }) {
+    await auth.protect();
+
     return (
         <>
             <div className="h-screen w-full overflow-hidden bg-[#FAFAFB]">
@@ -191,9 +195,11 @@ export default function DashboardLayout({ children }) {
                     <div className="flex-1 min-w-0 h-full overflow-y-auto">
                         <MobileNav />
                         <main className="min-w-0">
-                            <DashboardPageTransition>
-                                {children}
-                            </DashboardPageTransition>
+                            <DashboardAccessGuard>
+                                <DashboardPageTransition>
+                                    {children}
+                                </DashboardPageTransition>
+                            </DashboardAccessGuard>
                         </main>
                     </div>
 
