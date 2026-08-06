@@ -10,7 +10,7 @@ import {
   ChevronRight,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useEnlaceWhatsapp } from "@/ContextosGlobales/ContactoPublicoContext";
+import Link from "next/link";
 
 const CF_BASE = "https://imagedelivery.net/aCBUhLfqUcxA2yhIBn1fNQ";
 
@@ -23,7 +23,6 @@ function normalizeWhatsAppNumber(phone) {
 }
 
 export default function Portada() {
-  const enlaceWhatsapp = useEnlaceWhatsapp();
   const [dataPortada, setDataPortada] = useState([]);
   const [imageErrors, setImageErrors] = useState({});
   const [activeIndex, setActiveIndex] = useState(0);
@@ -217,15 +216,12 @@ export default function Portada() {
 
                 {/* CTAs */}
                 <div className="flex flex-wrap items-center gap-3 mb-7">
-                  <a
-                    href={enlaceWhatsapp || undefined}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-disabled={!enlaceWhatsapp}
-                    className={`inline-flex items-center rounded-full bg-indigo-600 px-6 py-2.5 text-sm font-bold text-white shadow-md shadow-indigo-200 transition-all hover:bg-indigo-700 hover:scale-[1.02] ${!enlaceWhatsapp ? "pointer-events-none opacity-60" : ""}`}
+                  <Link
+                    href="/agendaProfesionales"
+                    className="inline-flex items-center rounded-full bg-indigo-600 px-6 py-2.5 text-sm font-bold text-white shadow-md shadow-indigo-200 transition-all hover:bg-indigo-700 hover:scale-[1.02]"
                   >
                     Agendar hora
-                  </a>
+                  </Link>
                   <a
                     href="#sobre-nosotros"
                     className="inline-flex items-center rounded-full border border-slate-200 px-6 py-2.5 text-sm font-semibold text-slate-700 transition-all hover:border-indigo-300 hover:text-indigo-600"
@@ -307,15 +303,12 @@ export default function Portada() {
                   </p>
                 )}
                 <div className="flex justify-center flex-wrap gap-3 mb-6">
-                  <a
-                    href={enlaceWhatsapp || undefined}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-disabled={!enlaceWhatsapp}
-                    className={`inline-flex items-center rounded-full bg-indigo-600 px-6 py-2.5 text-sm font-bold text-white shadow-md shadow-indigo-200 transition-all hover:bg-indigo-700 ${!enlaceWhatsapp ? "pointer-events-none opacity-60" : ""}`}
+                  <Link
+                    href="/agendaProfesionales"
+                    className="inline-flex items-center rounded-full bg-indigo-600 px-6 py-2.5 text-sm font-bold text-white shadow-md shadow-indigo-200 transition-all hover:bg-indigo-700"
                   >
                     Agendar hora
-                  </a>
+                  </Link>
                   <a
                     href="#sobre-nosotros"
                     className="inline-flex items-center rounded-full border border-slate-200 px-6 py-2.5 text-sm font-semibold text-slate-700 hover:border-indigo-300 hover:text-indigo-600 transition-all"

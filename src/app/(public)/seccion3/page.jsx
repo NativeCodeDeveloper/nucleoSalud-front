@@ -4,7 +4,7 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, CalendarCheck, ArrowRight, BookOpen } from "lucide-react";
 import RevealOnScroll from "@/Componentes/RevealOnScroll";
-import { useEnlaceWhatsapp } from "@/ContextosGlobales/ContactoPublicoContext";
+import Link from "next/link";
 
 const CF_BASE = "https://imagedelivery.net/aCBUhLfqUcxA2yhIBn1fNQ";
 const FALLBACK_IMAGE = "/logoagendaclinica.png";
@@ -59,7 +59,6 @@ function SkeletonCard() {
 }
 
 export default function Seccion3() {
-  const enlaceWhatsapp = useEnlaceWhatsapp();
   const carouselRef = useRef(null);
   const [isAtStart, setIsAtStart] = useState(true);
   const [isAtEnd, setIsAtEnd] = useState(false);
@@ -155,16 +154,13 @@ export default function Seccion3() {
                   <p className="mt-2 text-sm text-slate-500 leading-relaxed">
                     Casos clínicos, tratamientos y novedades que este centro comparte para que llegues informado a tu consulta.
                   </p>
-                  <a
-                    href={enlaceWhatsapp || undefined}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-disabled={!enlaceWhatsapp}
-                    className={`mt-6 inline-flex items-center gap-2 rounded-full bg-indigo-600 px-6 py-2.5 text-sm font-bold text-white shadow-md shadow-indigo-200 transition-all hover:bg-indigo-700 hover:scale-[1.02] w-full max-w-xs justify-center lg:w-auto ${!enlaceWhatsapp ? "pointer-events-none opacity-60" : ""}`}
+                  <Link
+                    href="/agendaProfesionales"
+                    className="mt-6 inline-flex items-center gap-2 rounded-full bg-indigo-600 px-6 py-2.5 text-sm font-bold text-white shadow-md shadow-indigo-200 transition-all hover:bg-indigo-700 hover:scale-[1.02] w-full max-w-xs justify-center lg:w-auto"
                   >
                     Agendar hora
                     <ArrowRight className="h-4 w-4" />
-                  </a>
+                  </Link>
                 </div>
 
                 {/* ── Right: carousel ───────────────────────── */}
@@ -220,17 +216,14 @@ export default function Seccion3() {
                   Tu próxima hora está a un clic
                 </h2>
                 <p className="mx-auto max-w-xl text-lg text-indigo-100 mb-10">
-                  Agenda directamente por WhatsApp y recibe orientación para encontrar el profesional, el día y la hora que mejor se adapten a ti.
+                  Agenda en línea y encuentra el profesional, el día y la hora que mejor se adapten a ti.
                 </p>
-                <a
-                  href={enlaceWhatsapp || undefined}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-disabled={!enlaceWhatsapp}
-                  className={`inline-flex rounded-full bg-white px-8 py-4 font-bold text-indigo-600 transition hover:bg-slate-50 hover:scale-105 shadow-md ${!enlaceWhatsapp ? "pointer-events-none opacity-60" : ""}`}
+                <Link
+                  href="/agendaProfesionales"
+                  className="inline-flex rounded-full bg-white px-8 py-4 font-bold text-indigo-600 transition hover:bg-slate-50 hover:scale-105 shadow-md"
                 >
                   Agendar mi hora
-                </a>
+                </Link>
               </div>
             </div>
           </RevealOnScroll>
