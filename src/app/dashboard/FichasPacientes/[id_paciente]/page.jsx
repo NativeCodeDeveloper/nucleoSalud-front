@@ -15,6 +15,7 @@ import * as React from "react";
 import {CheckboxIcon} from "@radix-ui/react-icons";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
+import { Tooth } from "lucide-react";
 import {InfoButton} from "@/Componentes/InfoButton";
 import { formatRut } from "@/lib/designTokens";
 import {
@@ -959,7 +960,7 @@ export default function Paciente() {
                             <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-slate-400">Accesos directos</p>
                             <h3 className="text-lg font-bold text-slate-900">Acciones rápidas</h3>
                         </div>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                             <button onClick={() => nuevaFichaClinica(id_paciente)} className="min-h-[112px] bg-white border border-slate-200 rounded-[28px] p-6 flex flex-col items-start gap-3 hover:border-[#6E56CF] hover:shadow-lg hover:shadow-indigo-50/50 transition-all group text-left">
                                 <div className="h-10 w-10 rounded-xl bg-violet-50 text-[#6E56CF] flex items-center justify-center group-hover:bg-[#6E56CF] group-hover:text-white transition-colors">
                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" /></svg>
@@ -975,7 +976,7 @@ export default function Paciente() {
                             {canSeeOdontograma && (
                                 <button onClick={verOdontogramas} className="min-h-[112px] bg-white border border-slate-200 rounded-[28px] p-6 flex flex-col items-start gap-3 hover:border-[#6E56CF] hover:shadow-lg hover:shadow-indigo-50/50 transition-all group text-left">
                                     <div className="h-10 w-10 rounded-xl bg-violet-50 text-[#6E56CF] flex items-center justify-center group-hover:bg-[#6E56CF] group-hover:text-white transition-colors">
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 9.75h4.5m-4.5 4.5h4.5M7.5 3.75h9A2.25 2.25 0 0118.75 6v12A2.25 2.25 0 0116.5 20.25h-9A2.25 2.25 0 015.25 18V6A2.25 2.25 0 017.5 3.75z" /></svg>
+                                        <Tooth className="h-5 w-5" strokeWidth={2} />
                                     </div>
                                     <span className="text-[13px] font-bold leading-snug text-slate-700 break-words">Odontograma</span>
                                 </button>
@@ -991,7 +992,7 @@ export default function Paciente() {
                             {canSeeOdontograma && (
                                 <button onClick={verPeriodontograma} className="min-h-[112px] bg-white border border-slate-200 rounded-[28px] p-6 flex flex-col items-start gap-3 hover:border-[#6E56CF] hover:shadow-lg hover:shadow-indigo-50/50 transition-all group text-left">
                                     <div className="h-10 w-10 rounded-xl bg-violet-50 text-[#6E56CF] flex items-center justify-center group-hover:bg-[#6E56CF] group-hover:text-white transition-colors">
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7.5 12.75h9m-9 3h9M8.25 3.75h7.5A2.25 2.25 0 0118 6v12a2.25 2.25 0 01-2.25 2.25h-7.5A2.25 2.25 0 016 18V6a2.25 2.25 0 012.25-2.25zM9 7.5h.008v.008H9V7.5zm3 0h.008v.008H12V7.5zm3 0h.008v.008H15V7.5z" /></svg>
+                                        <Tooth className="h-5 w-5" strokeWidth={2} />
                                     </div>
                                     <span className="text-[13px] font-bold leading-snug text-slate-700 break-words">Periodontograma</span>
                                 </button>
