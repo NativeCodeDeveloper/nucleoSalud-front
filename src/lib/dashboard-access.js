@@ -2,6 +2,10 @@ const DASHBOARD_ROLES = [
   "default",
   "admin",
   "super-usuario-nativecode",
+  "administrador-clinico",
+  "operador-clinico",
+  "operador-medico",
+  "operador-odontologico",
   "recepcionista",
   "secretaria",
   "cancelado",
@@ -24,6 +28,87 @@ const routeMatchersByRole = {
     /^\/dashboard$/,
     /^\/dashboard\/no-access$/,
     /^\/dashboard\/createUser$/,
+  ],
+  "administrador-clinico": [
+    /^\/dashboard$/,
+    /^\/dashboard\/no-access$/,
+    /^\/dashboard\/calendario$/,
+    /^\/dashboard\/bloqueosAgenda$/,
+    /^\/dashboard\/AgendaDetalle\/[^/]+$/,
+    /^\/dashboard\/listaPacientes$/,
+    /^\/dashboard\/GestionPaciente$/,
+    /^\/dashboard\/paciente\/[^/]+$/,
+    /^\/dashboard\/FichaClinica$/,
+    /^\/dashboard\/FichasPacientes\/[^/]+$/,
+    /^\/dashboard\/NuevaFicha\/[^/]+$/,
+    /^\/dashboard\/EdicionFicha\/[^/]+$/,
+    /^\/dashboard\/archivosPacientes\/[^/]+$/,
+    /^\/dashboard\/recetaPacientes\/[^/]+$/,
+    /^\/dashboard\/recetaRapida$/,
+    /^\/dashboard\/examenDocumento$/,
+    /^\/dashboard\/presupuestoTratamiento$/,
+    /^\/dashboard\/ingresoProductos$/,
+    /^\/dashboard\/categoriasProductos$/,
+    /^\/dashboard\/subCategorias\/[^/]+$/,
+    /^\/dashboard\/subsubcategoria\/[^/]+$/,
+    /^\/dashboard\/EspecificacionProductos\/[^/]+$/,
+    /^\/dashboard\/profesionales$/,
+    /^\/dashboard\/serviciosAgendamiento$/,
+    /^\/dashboard\/tarifaServicio$/,
+    /^\/dashboard\/examenesClinicos$/,
+    /^\/dashboard\/datosEmpresa$/,
+    /^\/dashboard\/portadaEdit$/,
+    /^\/dashboard\/publicacionesTituloDescripcion$/,
+    /^\/dashboard\/publicaciones$/,
+    /^\/dashboard\/edicionPagina$/,
+  ],
+  "operador-clinico": [
+    /^\/dashboard$/,
+    /^\/dashboard\/no-access$/,
+    /^\/dashboard\/listaPacientes$/,
+    /^\/dashboard\/GestionPaciente$/,
+    /^\/dashboard\/FichaClinica$/,
+    /^\/dashboard\/paciente\/[^/]+$/,
+    /^\/dashboard\/FichasPacientes\/[^/]+$/,
+    /^\/dashboard\/NuevaFicha\/[^/]+$/,
+    /^\/dashboard\/EdicionFicha\/[^/]+$/,
+    /^\/dashboard\/archivosPacientes\/[^/]+$/,
+  ],
+  "operador-medico": [
+    /^\/dashboard$/,
+    /^\/dashboard\/no-access$/,
+    /^\/dashboard\/listaPacientes$/,
+    /^\/dashboard\/GestionPaciente$/,
+    /^\/dashboard\/FichaClinica$/,
+    /^\/dashboard\/paciente\/[^/]+$/,
+    /^\/dashboard\/FichasPacientes\/[^/]+$/,
+    /^\/dashboard\/NuevaFicha\/[^/]+$/,
+    /^\/dashboard\/EdicionFicha\/[^/]+$/,
+    /^\/dashboard\/archivosPacientes\/[^/]+$/,
+    /^\/dashboard\/recetaPacientes\/[^/]+$/,
+    /^\/dashboard\/recetaRapida$/,
+    /^\/dashboard\/recetaLentes$/,
+    /^\/dashboard\/examenDocumento$/,
+  ],
+  "operador-odontologico": [
+    /^\/dashboard$/,
+    /^\/dashboard\/no-access$/,
+    /^\/dashboard\/listaPacientes$/,
+    /^\/dashboard\/GestionPaciente$/,
+    /^\/dashboard\/FichaClinica$/,
+    /^\/dashboard\/paciente\/[^/]+$/,
+    /^\/dashboard\/FichasPacientes\/[^/]+$/,
+    /^\/dashboard\/NuevaFicha\/[^/]+$/,
+    /^\/dashboard\/EdicionFicha\/[^/]+$/,
+    /^\/dashboard\/archivosPacientes\/[^/]+$/,
+    /^\/dashboard\/recetaPacientes\/[^/]+$/,
+    /^\/dashboard\/recetaRapida$/,
+    /^\/dashboard\/recetaLentes$/,
+    /^\/dashboard\/examenDocumento$/,
+    /^\/dashboard\/odontogramasPaciente\/[^/]+$/,
+    /^\/dashboard\/presupuestoTratamiento$/,
+    /^\/dashboard\/ingresoProductos$/,
+    /^\/dashboard\/categoriasProductos$/,
   ],
   recepcionista: [
     /^\/dashboard$/,
@@ -385,6 +470,22 @@ const DASHBOARD_ROLE_DETAILS = {
     label: "Super Usuario NativeCode",
     description: "Puede crear usuarios en Clerk y asignar perfiles del sistema.",
   },
+  "administrador-clinico": {
+    label: "Administrador Clinico",
+    description: "Administra la operacion clinica, documental y de configuracion.",
+  },
+  "operador-clinico": {
+    label: "Operador Clinico",
+    description: "Gestiona pacientes y fichas clinicas con acceso operativo limitado.",
+  },
+  "operador-medico": {
+    label: "Operador Medico",
+    description: "Gestiona pacientes, fichas y documentos medicos.",
+  },
+  "operador-odontologico": {
+    label: "Operador Odontologico",
+    description: "Gestiona la atencion odontologica, odontogramas y presupuestos.",
+  },
   recepcionista: {
     label: "Recepcionista",
     description: "Gestiona agenda, pacientes basicos y detalle de reservas.",
@@ -439,7 +540,7 @@ function normalizeDashboardRole(input) {
   const raw = String(input || "").trim().toLowerCase();
 
   if (!raw) {
-    return "unknown";
+    return "default";
   }
 
   if (raw === "default" || raw === "admin") {
@@ -531,12 +632,13 @@ function getDashboardRoleFromUser(user) {
 }
 
 function canAccessOdontograma(role) {
-  return hasFullDashboardAccess(role) || normalizeDashboardRole(role) === "odontologico";
+  const normalizedRole = normalizeDashboardRole(role);
+  return hasFullDashboardAccess(role) || ["odontologico", "operador-odontologico"].includes(normalizedRole);
 }
 
 function canAccessRecetasEnFicha(role) {
   const normalizedRole = normalizeDashboardRole(role);
-  return hasFullDashboardAccess(role) || ["clinico-medico", "odontologico", "oftalmologia", "agenda"].includes(normalizedRole);
+  return hasFullDashboardAccess(role) || ["administrador-clinico", "operador-medico", "operador-odontologico", "clinico-medico", "odontologico", "oftalmologia", "agenda"].includes(normalizedRole);
 }
 
 function canAccessFichasClinicas(role) {
