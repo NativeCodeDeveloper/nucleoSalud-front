@@ -15,7 +15,7 @@ import * as React from "react";
 import {CheckboxIcon} from "@radix-ui/react-icons";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import { Tooth } from "lucide-react";
+import { TbDental } from "react-icons/tb";
 import {InfoButton} from "@/Componentes/InfoButton";
 import { formatRut } from "@/lib/designTokens";
 import {
@@ -976,7 +976,7 @@ export default function Paciente() {
                             {canSeeOdontograma && (
                                 <button onClick={verOdontogramas} className="min-h-[112px] bg-white border border-slate-200 rounded-[28px] p-6 flex flex-col items-start gap-3 hover:border-[#6E56CF] hover:shadow-lg hover:shadow-indigo-50/50 transition-all group text-left">
                                     <div className="h-10 w-10 rounded-xl bg-violet-50 text-[#6E56CF] flex items-center justify-center group-hover:bg-[#6E56CF] group-hover:text-white transition-colors">
-                                        <Tooth className="h-5 w-5" strokeWidth={2} />
+                                        <TbDental className="h-5 w-5" />
                                     </div>
                                     <span className="text-[13px] font-bold leading-snug text-slate-700 break-words">Odontograma</span>
                                 </button>
@@ -992,7 +992,7 @@ export default function Paciente() {
                             {canSeeOdontograma && (
                                 <button onClick={verPeriodontograma} className="min-h-[112px] bg-white border border-slate-200 rounded-[28px] p-6 flex flex-col items-start gap-3 hover:border-[#6E56CF] hover:shadow-lg hover:shadow-indigo-50/50 transition-all group text-left">
                                     <div className="h-10 w-10 rounded-xl bg-violet-50 text-[#6E56CF] flex items-center justify-center group-hover:bg-[#6E56CF] group-hover:text-white transition-colors">
-                                        <Tooth className="h-5 w-5" strokeWidth={2} />
+                                        <TbDental className="h-5 w-5" />
                                     </div>
                                     <span className="text-[13px] font-bold leading-snug text-slate-700 break-words">Periodontograma</span>
                                 </button>
